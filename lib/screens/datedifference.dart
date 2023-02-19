@@ -85,6 +85,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
     DateTime date = _date3 ?? DateTime.now();
     int days = int.tryParse(_noFromDayController.text) ?? 0;
     DateTime resultDate = date.add(Duration(days: days));
+    resultDate = resultDate.subtract(Duration(days: 1));
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     String formattedDate = dateFormat.format(resultDate);
     setState(() {
@@ -150,7 +151,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                       mode: DateTimeFieldPickerMode.date,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (e) => (e?.day ?? 0) == 1
-                          ? 'ملاحظة: ليس اليوم الأول من الشهر'
+                          ? 'ملاحظة:  اليوم الأول من الشهر'
                           : null,
                       onDateSelected: (DateTime value) {
                         _date1 = value;
@@ -171,7 +172,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                       mode: DateTimeFieldPickerMode.date,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (e) => (e?.day ?? 0) == 1
-                          ? 'Please not the first day'
+                          ? 'ملاحظة:  اليوم الأول من الشهر'
                           : null,
                       onDateSelected: (DateTime value) {
                         _date2 = value;
@@ -191,7 +192,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                         }
                         , child: Text('احسب الفرق',style: TextStyle(
                             fontFamily: 'Cairo',
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w300,
                             fontSize: 24,color: Colors.white),)),
                     Container(
                         margin: EdgeInsets.all(10),
@@ -213,54 +214,54 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                 height: 10,
               ),
 
-              MyContainer(5, 5, Colors.greenAccent.shade100,Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-
-                      borderRadius: BorderRadius.circular(5),
-                      color: Color(0xffF5F5F5),
-                    ),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'أدخل قيمة';
-                        }
-                        return null;
-                      },
-                      controller: _noDaysController,
-                      decoration: InputDecoration(
-                        labelText: 'أدخل عدد الأيام',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    color: Color(0xff41e0a2),
-                      onPressed: _calculateDaysAfter, child: Text('احسب التاريخ',style: TextStyle(
-                      fontFamily: 'Cairo',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,color: Colors.white),)),
-
-
-                  Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xffF5F5F5),
-                      ),
-                      child: Text(
-                        _noDaysresult,
-                        style: TextStyle(
-                            fontFamily: 'Cairo',
-                            fontWeight: FontWeight.w300,
-                            fontSize: 20),
-                      )),
-                ],
-              )),
+              // MyContainer(5, 5, Colors.greenAccent.shade100,Column(
+              //   children: [
+              //     Container(
+              //       decoration: BoxDecoration(
+              //
+              //         borderRadius: BorderRadius.circular(5),
+              //         color: Color(0xffF5F5F5),
+              //       ),
+              //       child: TextFormField(
+              //         validator: (value) {
+              //           if (value == null || value.isEmpty) {
+              //             return 'أدخل قيمة';
+              //           }
+              //           return null;
+              //         },
+              //         controller: _noDaysController,
+              //         decoration: InputDecoration(
+              //           labelText: 'أدخل عدد الأيام',
+              //           border: OutlineInputBorder(),
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       height: 10,
+              //     ),
+              //     MaterialButton(
+              //       color: Color(0xff41e0a2),
+              //         onPressed: _calculateDaysAfter, child: Text('احسب التاريخ',style: TextStyle(
+              //         fontFamily: 'Cairo',
+              //         fontWeight: FontWeight.w700,
+              //         fontSize: 24,color: Colors.white),)),
+              //
+              //
+              //     Container(
+              //         margin: EdgeInsets.all(10),
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(5),
+              //           color: Color(0xffF5F5F5),
+              //         ),
+              //         child: Text(
+              //           _noDaysresult,
+              //           style: TextStyle(
+              //               fontFamily: 'Cairo',
+              //               fontWeight: FontWeight.w300,
+              //               fontSize: 20),
+              //         )),
+              //   ],
+              // )),
               MyContainer(5, 5, Colors.red.shade100,Column(
                 children: [
                   DateTimeFormField(
@@ -274,7 +275,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                     mode: DateTimeFieldPickerMode.date,
                     autovalidateMode: AutovalidateMode.always,
                     validator: (e) => (e?.day ?? 0) == 1
-                        ? 'ملاحظة: ليس اليوم الأول من الشهر'
+                        ? 'ملاحظة:  اليوم الأول من الشهر'
                         : null,
                     onDateSelected: (DateTime value) {
                       _date3 = value;
@@ -291,6 +292,7 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                       color: Color(0xffF5F5F5),
                     ),
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'أدخل قيمة';
@@ -309,9 +311,9 @@ class _DateDifferenceAppState extends State<DateDifferenceApp> {
                   ),
                   MaterialButton(
                       color: Color(0xaf2131da),
-                      onPressed: _calculateDaysAfterDate, child: Text('احسب التاريخ',style: TextStyle(
+                      onPressed: _calculateDaysAfterDate, child: Text('احسب تاريخ العودة',style: TextStyle(
                       fontFamily: 'Cairo',
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w300,
                       fontSize: 24,color: Colors.white),)),
 
 
